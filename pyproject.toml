@@ -1,0 +1,19 @@
+[project]
+name = "pythonrozetkatest"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Oksana",email = "oksanakysylychak@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "djangorestframework (>=3.16.1,<4.0.0)",
+    "django-dotenv (>=1.4.2,<2.0.0)",
+    "mysqlclient (>=2.2.7,<3.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
