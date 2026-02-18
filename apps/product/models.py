@@ -12,7 +12,7 @@ class ProductModel(BaseModel):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField(blank=True)
     subcategory =models.ForeignKey(SubCategoryModel, on_delete=models.CASCADE, related_name='products')
-    stock = models.PositiveIntegerField(default=0, blank=True)
+    stock = models.PositiveIntegerField(default=1, blank=True)
     views_count = models.PositiveIntegerField(default=0)
     is_available = models.BooleanField(default=True)
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)

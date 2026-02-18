@@ -20,6 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('categories', include('apps.category.urls') ),
     path('subcategories', include('apps.subcategory.urls') ),
+    path('products', include('apps.product.urls') ),
 
 
 
