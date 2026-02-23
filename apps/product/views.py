@@ -1,8 +1,10 @@
 
 # from apps.subcategory.models import SubCategoryModel
 from rest_framework import status
-from rest_framework.generics import GenericAPIView
+from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.response import Response
+
+
 
 from apps.product.models import ProductModel
 from apps.product.serializers import ProductSerializer
@@ -11,12 +13,15 @@ from apps.product.serializers import ProductSerializer
 class ProductRetrieveUpdateDestroyView(GenericAPIView):
     def get(self, *args, **kwargs):
         pk_product = kwargs['pk_product']
-        try:
-            product = ProductModel.objects.get(pk=pk_product)
-        except ProductModel.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+        # try:
+        #     product = ProductModel.objects.get(pk=pk_product)
+        # except ProductModel.DoesNotExist:
+        #     return Response(status=status.HTTP_404_NOT_FOUND)
+        product = get_object_or_404(ProductModel, pk=pk_product)
         serializer = ProductSerializer(product)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
+
 
     def put(self, *args, **kwargs):
         pk_product = kwargs['pk_product']
@@ -28,6 +33,7 @@ class ProductRetrieveUpdateDestroyView(GenericAPIView):
         serializer = ProductSerializer(product, data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, *args, **kwargs):
@@ -36,6 +42,7 @@ class ProductRetrieveUpdateDestroyView(GenericAPIView):
             ProductModel.objects.get(pk=pk_product).delete()
         except ProductModel.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 

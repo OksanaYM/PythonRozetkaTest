@@ -30,6 +30,7 @@ class SubCategoryRetrieveUpdateDestroyView(GenericAPIView):
         serializer = SubCategorySerializer(subcategory, data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -39,6 +40,7 @@ class SubCategoryRetrieveUpdateDestroyView(GenericAPIView):
             SubCategoryModel.objects.get(pk=pk_subcategory).delete()
         except SubCategoryModel.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -56,6 +58,7 @@ class SubCategoryProductListCreateView(GenericAPIView):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
     def post(self, *args, **kwargs):
         pk_subcategory = kwargs['pk_subcategory']
         exist_subcategory = SubCategoryModel.objects.filter(pk=pk_subcategory)
@@ -67,6 +70,7 @@ class SubCategoryProductListCreateView(GenericAPIView):
         serializer = ProductSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save(subcategory_id=pk_subcategory)
+
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 

@@ -21,6 +21,7 @@ urlpatterns = [
     path('categories', include('apps.category.urls') ),
     path('subcategories', include('apps.subcategory.urls') ),
     path('products', include('apps.product.urls') ),
+    path('auth', include('apps.auth.urls')),
 
 
 
