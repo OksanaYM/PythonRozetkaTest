@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'apps.core',
     'apps.user',
+    'apps.auth',
     'apps.category',
     'apps.subcategory',
     'apps.product',

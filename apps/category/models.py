@@ -9,7 +9,7 @@ class CategoryModel(BaseModel):
     class Meta:
         db_table = 'categories'
 
-    name = models.CharField(max_length=255, validators=[V.RegexValidator(RegexEnum.NAME.pattern, RegexEnum.NAME.msg)] )
+    name = models.CharField(max_length=255, validators=[V.RegexValidator(RegexEnum.NAME_C_SC.pattern, RegexEnum.NAME_C_SC.msg)] )
 
 
 

@@ -1,4 +1,6 @@
 from django.contrib.auth.models import UserManager as Manager
+from rest_framework import status
+from rest_framework.response import Response
 
 
 class UserManager(Manager):
@@ -11,6 +13,7 @@ class UserManager(Manager):
 
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
+
         user.set_password(password)
         user.save()
         return user
