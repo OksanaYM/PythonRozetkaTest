@@ -2,15 +2,20 @@
 # from apps.subcategory.models import SubCategoryModel
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, get_object_or_404
+from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
-
-
+from apps.core.permissions.is_admin_or_read_only_permission import IsAdminOrReadOnly
+from apps.core.permissions.is_seller_or_read_only_permission import IsSellerOrReadOnly
+from apps.core.permissions.is_seller_permission import IsSeller
 from apps.product.models import ProductModel
 from apps.product.serializers import ProductSerializer
 
 
 class ProductRetrieveUpdateDestroyView(GenericAPIView):
+    permission_classes = (IsAdminOrReadOnly | IsSellerOrReadOnly, )
+
+
     def get(self, *args, **kwargs):
         pk_product = kwargs['pk_product']
         # try:

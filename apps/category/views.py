@@ -1,25 +1,31 @@
 from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView
+from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
 from apps.category.models import CategoryModel
 from apps.category.serializers import CategorySerializer
-from apps.subcategory.models import SubCategoryModel
+from apps.core.permissions.is_admin_or_read_only_permission import IsAdminOrReadOnly
+from apps.core.permissions.is_seller_permission import IsSeller
 from apps.subcategory.serializers import SubCategorySerializer
 
 
 class CategoryListCreateView(ListCreateAPIView):
     queryset = CategoryModel.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = (IsAdminOrReadOnly, )
 
 
 class CategoryRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = CategoryModel.objects.all()
     serializer_class = CategorySerializer
     http_method_names = ('get', 'put', 'delete' )
+    permission_classes = (IsAdminOrReadOnly,)
 
 
 class CategorySubCategoryCreateView(GenericAPIView):
+    permission_classes = (IsAdminUser | IsSeller,)
+
 
     def post(self, *args, **kwargs):
         pk_category = kwargs['pk']

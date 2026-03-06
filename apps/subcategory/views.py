@@ -1,7 +1,11 @@
 from rest_framework import status, generics
 from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
+from apps.core.permissions.is_admin_or_read_only_permission import IsAdminOrReadOnly
+from apps.core.permissions.is_seller_or_read_only_permission import IsSellerOrReadOnly
+from apps.core.permissions.is_seller_permission import IsSeller
 from apps.product.models import ProductModel
 from apps.product.serializers import ProductSerializer
 from apps.subcategory.models import SubCategoryModel
@@ -10,6 +14,8 @@ from apps.subcategory.serializers import SubCategorySerializer
 
 
 class SubCategoryRetrieveUpdateDestroyView(GenericAPIView):
+    permission_classes = (IsAdminOrReadOnly | IsSellerOrReadOnly, )
+
     def get(self, *args, **kwargs):
         pk_subcategory = kwargs['pk_subcategory']
         try:
@@ -46,6 +52,8 @@ class SubCategoryRetrieveUpdateDestroyView(GenericAPIView):
 
 
 class SubCategoryProductListCreateView(GenericAPIView):
+    permission_classes = (IsAdminOrReadOnly | IsSellerOrReadOnly, )
+
     def get(self, *args, **kwargs):
         pk_subcategory = kwargs['pk_subcategory']
         exist_subcategory = SubCategoryModel.objects.filter(pk=pk_subcategory)
