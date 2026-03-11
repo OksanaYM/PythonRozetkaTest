@@ -12,7 +12,7 @@ from apps.subcategory.serializers import SubCategorySerializer
 
 
 class SubCategoryRetrieveUpdateDestroyView(GenericAPIView):
-    permission_classes = (IsAdminOrReadOnly | IsSellerOrReadOnly, )
+    permission_classes = (IsAdminOrReadOnly, )
 
     def get(self, *args, **kwargs):
         pk_subcategory = kwargs['pk_subcategory']
@@ -50,7 +50,7 @@ class SubCategoryRetrieveUpdateDestroyView(GenericAPIView):
 
 
 class SubCategoryProductListCreateView(GenericAPIView):
-    permission_classes = (IsAdminOrReadOnly | IsSellerOrReadOnly, )
+    permission_classes = (IsAdminOrReadOnly, )
 
     def get(self, *args, **kwargs):
         pk_subcategory = kwargs['pk_subcategory']

@@ -24,7 +24,7 @@ class CategoryRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
 
 
 class CategorySubCategoryCreateView(GenericAPIView):
-    permission_classes = (IsAdminUser | IsSeller,)
+    permission_classes = (IsAdminUser, )
 
 
     def post(self, *args, **kwargs):

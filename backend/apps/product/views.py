@@ -13,7 +13,7 @@ from apps.product.serializers import ProductSerializer
 
 
 class ProductRetrieveUpdateDestroyView(GenericAPIView):
-    permission_classes = (IsAdminOrReadOnly | IsSellerOrReadOnly, )
+    permission_classes = (IsAdminOrReadOnly, )
 
 
     def get(self, *args, **kwargs):
