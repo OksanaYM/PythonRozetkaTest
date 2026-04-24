@@ -1,9 +1,12 @@
 from django.contrib.auth import get_user_model
+from django.db.transaction import atomic
 from rest_framework import serializers
 
 from apps.core.enums.regex_enum import RegexEnum
 from apps.user.models import ProfileModel
 from django.core import validators as V
+
+from apps.user.services.email_service import EmailService
 
 UserModel = get_user_model()
 
@@ -50,9 +53,10 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
 
-
+    @atomic
     def create(self, validated_data:dict):
         profile = validated_data.pop('profile')
         user = UserModel.objects.create_user(**validated_data)
         ProfileModel.objects.create(user=user, **profile)
+        EmailService.register(user)
         return user
